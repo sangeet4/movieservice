@@ -1,77 +1,34 @@
 package com.stackroute.movieservice.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Document(collection = "movie")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Movie {
 
     @Id
     int id;
+
+    @NotBlank(message = "movie title can't be blank")
     String movieTitle;
+
     String comments;
+
+    @NotBlank(message = "a movie can't be so bad to not have any rating")
     String rating;
+
     int yearOfRelease;
-
-    public Movie() {
-    }
-
-    public Movie(int id, String movieTitle, String comments, String rating, int yearOfRelease) {
-        this.id = id;
-        this.movieTitle = movieTitle;
-        this.comments = comments;
-        this.rating = rating;
-        this.yearOfRelease = yearOfRelease;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getMovieTitle() {
-        return movieTitle;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public int getYearOfRelease() {
-        return yearOfRelease;
-    }
-
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public void setYearOfRelease(int yearOfRelease) {
-        this.yearOfRelease = yearOfRelease;
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", movieTitle='" + movieTitle + '\'' +
-                ", comments='" + comments + '\'' +
-                ", rating=" + rating +
-                ", yearOfRelease=" + yearOfRelease +
-                '}';
-    }
 }

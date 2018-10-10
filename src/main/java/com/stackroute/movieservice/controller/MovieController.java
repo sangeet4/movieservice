@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class MovieController {
     }
 
     @PostMapping("movies")
-    public ResponseEntity<?> saveMovies(@RequestBody List<Movie> movies){
+    public ResponseEntity<?> saveMovies(@Valid @RequestBody List<Movie> movies){
         try{
             return new ResponseEntity<List<Movie>>(movieService.saveAllMovie(movies), HttpStatus.CREATED);
         } catch (Exception e){
@@ -29,7 +30,7 @@ public class MovieController {
     }
 
     @PostMapping("movie")
-    public ResponseEntity<?> saveMovie(@RequestBody Movie movie){
+    public ResponseEntity<?> saveMovie(@Valid @RequestBody Movie movie){
         ResponseEntity responseEntity;
         try{
             Movie savedMovie = movieService.saveMovie(movie);
