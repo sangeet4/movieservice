@@ -36,11 +36,11 @@ public class MovieServiceImpl implements MovieService{
         if (!(movieRepository.existsById(movie.getId()))){
             Movie savedMovie = movieRepository.save(movie);
             if(savedMovie == null)
-                throw new MovieAlreadyExistsException("Movie already exists");
+                throw new MovieAlreadyExistsException("Movie with id: \""+movie.getId()+"\" already exists");
             return savedMovie;
         }
         else
-            throw new MovieAlreadyExistsException("Movie already exists");
+            throw new MovieAlreadyExistsException("Movie with id: \""+movie.getId()+"\" already exists");
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MovieServiceImpl implements MovieService{
             return savedMovie;
         }
         else
-            throw new MovieNotFoundException("Movie with id: "+id+" not found");
+            throw new MovieNotFoundException("Movie with id: \""+id+"\" not found");
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MovieServiceImpl implements MovieService{
         if(!(allMovie.isEmpty()))
             return allMovie;
         else
-            throw new MovieNotFoundException("Movie with name: "+title+" not found");
+            throw new MovieNotFoundException("Movie with name: \""+title+"\" not found");
     }
 
     @Override
@@ -84,7 +84,7 @@ public class MovieServiceImpl implements MovieService{
             return movieRepository.findAll();
         }
         else
-            throw new MovieNotFoundException("Movie with id: "+id+" not found");
+            throw new MovieNotFoundException("Movie with id: \""+id+"\" not found");
     }
 
     @Override
@@ -97,6 +97,6 @@ public class MovieServiceImpl implements MovieService{
             return movieToUpdate;
         }
         else
-            throw new MovieNotFoundException("Movie with id: "+id+" not found");
+            throw new MovieNotFoundException("Movie with id: \""+id+"\" not found");
     }
 }

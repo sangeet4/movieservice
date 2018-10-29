@@ -27,6 +27,8 @@ public class Movie {
 
     String comments;
 
+    String posterUrl;
+
     @NotBlank(message = "a movie can't be so bad to not have any rating")
     String rating;
 

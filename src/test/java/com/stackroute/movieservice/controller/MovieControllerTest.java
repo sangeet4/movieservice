@@ -168,7 +168,7 @@ public class MovieControllerTest {
         String comment = "abcdxyz";
         //movie.setComments(comment);
         movie.setComments(comment);
-        when(movieService.updateMovie(anyInt(), any())).thenReturn(null);
+        when(movieService.updateMovie(anyInt(), any())).thenReturn(movie);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/movie/"+id)
                 .contentType(MediaType.APPLICATION_JSON).content(comment))
                 .andExpect(MockMvcResultMatchers.status().isOk())
