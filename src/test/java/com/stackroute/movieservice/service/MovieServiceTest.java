@@ -40,7 +40,7 @@ public class MovieServiceTest {
         movie.setId(1);
         movie.setComments("Jenny");
         movie.setRating("7.0");
-        movie.setYearOfRelease(2010);
+        movie.setYearOfRelease("2010");
         list = new ArrayList<>();
         list.add(movie);
     }

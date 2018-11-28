@@ -61,7 +61,7 @@ public class MovieControllerTest {
         movie.setMovieTitle("Jonny");
         movie.setComments("English");
         movie.setRating("7.1");
-        movie.setYearOfRelease(2013);
+        movie.setYearOfRelease("2013");
         list = new ArrayList();
 
         list.add(movie);

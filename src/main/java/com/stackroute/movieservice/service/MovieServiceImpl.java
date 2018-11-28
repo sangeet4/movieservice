@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Primary
@@ -27,8 +27,7 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public List<Movie> saveAllMovie(List<Movie> movie) {
-        List<Movie> savedMovies= movieRepository.saveAll(movie);
-        return savedMovies;
+        return movieRepository.saveAll(movie);
     }
 
     @Override
@@ -36,11 +35,11 @@ public class MovieServiceImpl implements MovieService{
         if (!(movieRepository.existsById(movie.getId()))){
             Movie savedMovie = movieRepository.save(movie);
             if(savedMovie == null)
-                throw new MovieAlreadyExistsException("Movie with id: \""+movie.getId()+"\" already exists");
+                throw new MovieAlreadyExistsException(String.format("Movie with id: \"%d\" already exists", movie.getId()));
             return savedMovie;
         }
         else
-            throw new MovieAlreadyExistsException("Movie with id: \""+movie.getId()+"\" already exists");
+            throw new MovieAlreadyExistsException(String.format("Movie with id: \"%d\" already exists", movie.getId()));
     }
 
     @Override
@@ -55,26 +54,24 @@ public class MovieServiceImpl implements MovieService{
     @Override
     public Movie getMovieById(int id) throws MovieNotFoundException {
         if(movieRepository.existsById(id)) {
-            Movie savedMovie = movieRepository.findById(id).get();
-            return savedMovie;
+            Optional<Movie> value =  movieRepository.findById(id);
+            if(value.isPresent())
+                return value.get();
+            else
+                return null;
         }
         else
-            throw new MovieNotFoundException("Movie with id: \""+id+"\" not found");
+            throw new MovieNotFoundException(String.format("Movie with id: \"%d\" not found", id));
     }
 
     @Override
     public List<Movie> getMovieByTitle(String title) throws MovieNotFoundException{
-        //List<Integer> ids = new ArrayList<>();
-        List<Movie> allMovie = new ArrayList<>();//movieRepository.findAll();
-//        for(Movie m:allMovie) {
-//            if (m.getMovieTitle().equalsIgnoreCase(title))
-//                ids.add(m.getId());
-//        }
+        List<Movie> allMovie;
         allMovie = movieRepository.findByMovieTitle(title);
         if(!(allMovie.isEmpty()))
             return allMovie;
         else
-            throw new MovieNotFoundException("Movie with name: \""+title+"\" not found");
+            throw new MovieNotFoundException(String.format("Movie with name: \"%s\" not found", title));
     }
 
     @Override
@@ -84,17 +81,20 @@ public class MovieServiceImpl implements MovieService{
             return movieRepository.findAll();
         }
         else
-            throw new MovieNotFoundException("Movie with id: \""+id+"\" not found");
+            throw new MovieNotFoundException(String.format("Movie with id: \"%d\" not found", id));
     }
 
     @Override
     public Movie updateMovie(int id, String comment) throws MovieNotFoundException{
         if(movieRepository.existsById(id)) {
-            Movie movieToUpdate = movieRepository.findById(id).get();
-            movieToUpdate.setComments(comment);
-            //movieRepository.deleteById(id);
-            movieToUpdate = movieRepository.save(movieToUpdate);
-            return movieToUpdate;
+            Optional<Movie> value = movieRepository.findById(id);
+            if(value.isPresent()) {
+                Movie movieToUpdate = value.get();
+                movieToUpdate.setComments(comment);
+                movieToUpdate = movieRepository.save(movieToUpdate);
+                return movieToUpdate;
+            } else
+                return null;
         }
         else
             throw new MovieNotFoundException("Movie with id: \""+id+"\" not found");

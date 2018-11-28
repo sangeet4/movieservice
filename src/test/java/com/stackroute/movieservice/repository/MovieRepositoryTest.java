@@ -33,7 +33,7 @@ public class MovieRepositoryTest {
         movie.setMovieTitle("abc");
         movie.setComments("xyz");
         movie.setRating("7.2");
-        movie.setYearOfRelease(2010);
+        movie.setYearOfRelease("2010");
     }
 
     @After
@@ -50,7 +50,7 @@ public class MovieRepositoryTest {
 
     @Test
     public void testSaveMovieFailure(){
-        Movie testMovie = new Movie(1,"","wick","", "5.4",2013);
+        Movie testMovie = new Movie(1,"","wick","", "5.4","2013");
         movieRepository.save(movie);
         Movie fetchMovie = movieRepository.findById(movie.getId()).get();
         Assert.assertNotSame(fetchMovie, movie);
@@ -58,8 +58,8 @@ public class MovieRepositoryTest {
 
     @Test
     public void testGetAllMovie() throws Exception{
-        Movie m = new Movie(1,"Johnny","English","","7.9",2010);
-        Movie m1 = new Movie(2,"Jenny","Atkinson","","6.2",2013);
+        Movie m = new Movie(1,"Johnny","English","","7.9","2010");
+        Movie m1 = new Movie(2,"Jenny","Atkinson","","6.2","2013");
         movieRepository.save(m);
         movieRepository.save(m1);
 
@@ -71,8 +71,8 @@ public class MovieRepositoryTest {
 
     @Test
     public void testGetMovieByName() throws Exception{
-        Movie m = new Movie(3,"Johnny","English","","7.9",2010);
-        Movie m1 = new Movie(4,"Johnny","Atkinson","","6.2",2013);
+        Movie m = new Movie(3,"Johnny","English","","7.9","2010");
+        Movie m1 = new Movie(4,"Johnny","Atkinson","","6.2","2013");
         movieRepository.save(m);
         movieRepository.save(m1);
 

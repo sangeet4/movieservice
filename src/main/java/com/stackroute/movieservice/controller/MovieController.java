@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value="api/v1")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class MovieController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieServiceImpl.class);

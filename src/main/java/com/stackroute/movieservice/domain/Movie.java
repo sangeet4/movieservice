@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Document(collection = "movie")
 @Data
@@ -32,5 +29,5 @@ public class Movie {
     @NotBlank(message = "a movie can't be so bad to not have any rating")
     String rating;
 
-    int yearOfRelease;
+    String yearOfRelease;
 }
